@@ -10,6 +10,8 @@ import (
 
 type NumberList chan string
 
+func chomp(r rune) bool { return r == '\n' }
+
 func (self NumberList) ReadNumbers(buffer *bufio.Reader) {
     defer close(self)
     for {
@@ -17,7 +19,7 @@ func (self NumberList) ReadNumbers(buffer *bufio.Reader) {
         if err == io.EOF {
             break
         }
-        self <- strings.Trim(line, "\n")
+        self <- strings.TrimFunc(line, chomp)
     }
 }
 
