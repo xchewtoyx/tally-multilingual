@@ -7,11 +7,14 @@ type Count struct {
 
 type Counter []Count
 
-func (p Counter) LoadMap(source map[string]int) Counter {
+func LoadMap(source map[string]int) *Counter {
+    counts := make(Counter, len(source))
+    i := 0
     for k, v := range source {
-        p = append(p, Count{Key: k, Count: v})
+        counts[i] = Count{Key: k, Count: v}
+        i++
     }
-    return p
+    return &counts
 }
 
 func (p Counter) Len() int {
