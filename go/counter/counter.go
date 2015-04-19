@@ -16,19 +16,6 @@ func New() Counter {
     return self
 }
 
-func NewFromMap(source map[string]int) Counter {
-    var self Counter
-    self.Counts = make([]count, len(source))
-    self.KeyIndex = make(map[string]int)
-    i := 0
-    for key, value := range source {
-        self.Counts[i] = count{Key: key, Count: value}
-        self.KeyIndex[key] = i
-        i++
-    }
-    return self
-}
-
 func (self *Counter) Tally(key string) {
     if val, ok := self.KeyIndex[key]; ok {
         self.Counts[val].Count += 1
