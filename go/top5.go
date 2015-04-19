@@ -12,8 +12,8 @@ import (
 
 var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
 
-func print_top5(counts *counter.Counter) {
-	for i, c := range *counts {
+func print_top5(counts counter.Counter) {
+	for i, c := range counts.Counts {
 		if i > 4 {
 			break
 		}
@@ -33,15 +33,14 @@ func main() {
 	}
 
 	numbers := make(counter.NumberList)
-	tally := make(map[string]int)
+	tally := counter.New()
 
 	go numbers.ReadNumbersFromFile(flag.Args()[0])
 	for number := range numbers {
-		tally[number] += 1
+		tally.Tally(number)
 	}
 
-	counts := counter.LoadMap(tally)
-	sort.Sort(sort.Reverse(counts))
+	sort.Sort(sort.Reverse(tally))
 
-	print_top5(counts)
+	print_top5(tally)
 }
