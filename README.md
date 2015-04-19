@@ -1,4 +1,4 @@
-List the 3 most common numbers in a file with one int per line.
+List the 5 most common numbers in a file with one int per line.
 
 Implementations in several languages.
 
